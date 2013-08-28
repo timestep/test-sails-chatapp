@@ -12,5 +12,32 @@
 		<input id="loginPasswordid" type="password" placeholder="password"/>
 		<button id="loginButton">Login</button>
 	</div>
+	<div>
+		<h3>Signup</h3>
+		<input type="text" id="signupName" placeholder="name" />
+		<input type="password" id="signupPassword" placeholder="password" />
+		<input type="password" id="signupConfirmPassword" placeholder="confirm password" />
+		<button id="signupButton">Signup</button>
+	</div>
 </body>
 </html>
+
+<script>
+	$("#loginButton").click(function(){
+		var username = $("#loginName").val();
+		var password = $("#loginPassword").val();
+		if (username && password){
+			$.post(
+				'/login',
+				{username: username, password:password},
+				function(){
+					window.location = "/chat";
+				}
+			).fail(function(res){
+				alert("Error: " + res.getResponseHeader("error"));
+			});
+		} else {
+			alert("A username and Passwrod is Required");
+		}
+	});
+</script>
