@@ -8,6 +8,7 @@ var MainController = {
 		
 		Users.findByUsername(username).done(function(err,usr){
 			if(err){
+				console.log('problem officer');
 				res.send(500, { error: "DB Error" });
 			} else if (usr) {
 				res.send(400, { error: "Username already Taken" });
