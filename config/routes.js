@@ -11,7 +11,7 @@ module.exports.routes = {
   },
 
   '/login': {
-  	controller:'main",
+  	controller:'main',
 	action:'login'
   },
 
