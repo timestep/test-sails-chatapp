@@ -25,7 +25,7 @@ var MainController = {
 					    }
 				});
 			}
-		}	
+		});	
 	},
 	login:function(req,res){
 		var username = req.param("username");
@@ -47,7 +47,7 @@ var MainController = {
 					res.send(404, { error: "User not Found"});
 				}
 			}
-		}	
+		});	
 	},
 	chat:function(req,res){
 
