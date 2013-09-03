@@ -6,15 +6,16 @@ var MainController = {
 		var username = req.param("username");
 		var password = req.param("password");
 		
-		Users.findByUsername(username).done(function(err,usr){
+		Users.find(username).done(function(err,usr){
 			if(err){
+				console.log(err);
 				console.log('problem officer');
 				res.send(500, { error: "DB Error" });
 			} else if (usr) {
 				res.send(400, { error: "Username already Taken" });
 			} else {
 				var hasher = require("password-hash");
-				password = hasher.generate(password);
+				//password = hasher.generate(password);
 
 				User.create({username: username, password: password})
 				    .done(function(error,user){
@@ -32,13 +33,14 @@ var MainController = {
 		var username = req.param("username");
 		var password = req.param("password");
 
-		Users.findByUsername(username).done(function(err,usr){
+		Users.find(username).done(function(err,usr){
 			if(err){
 				res.send(500, { error: "DB Error" });
 			} else {
 				if (usr) {
 					var hasher = require("password-hash");
-					if (hasher.verify(password, usr.password)){
+					//if (hasher.verify(password, usr.password)){
+					if (password === usr.password){
 						req.session.user = usr;
 						res.send(usr);
 					} else {
@@ -51,7 +53,11 @@ var MainController = {
 		});	
 	},
 	chat:function(req,res){
-
+		if(req.session.user){
+			res.view({username:req.session.user.username});
+		} else {
+			res.redirect('/');
+		}
 	}
 };
 module.exports = MainController;
