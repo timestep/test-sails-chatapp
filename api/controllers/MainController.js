@@ -40,6 +40,7 @@ var MainController = {
 		Users.findOneByUsername(username)
 			.done(function(err,usr){
 				if(err){
+					res.set('error','DB Error');
 					res.send(500, { error: "DB Error" });
 				} else {
 					if (usr) {
@@ -48,12 +49,15 @@ var MainController = {
 							console.log('verified');
 							req.session.user = usr;
 							res.send(usr);
+			setBreakpoint(), sb();	
 							console.log(req.session.user);
 						} else {
+							res.set('error','Wrong Password');
 							res.send(400, { error: "Wrong Password" });
 						}
 					} else {
 						console.log("usernotfound");
+						res.set('error','User not Found');
 						res.send(404, { error: "User not Found"});
 					}
 				}
