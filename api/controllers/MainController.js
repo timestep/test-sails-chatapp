@@ -2,16 +2,17 @@ var MainController = {
 	index: function (req,res){
 		res.view();	
 	},
-	signup:function(req,res){
+	signup: function(req,res){
 		var username = req.param("username");
 		var password = req.param("password");
-		
+		//console.log(username,password);	
 		Users.find(username).done(function(err,usr){
 			if(err){
 				console.log(err);
 				console.log('problem officer');
 				res.send(500, { error: "DB Error" });
 			} else if (usr) {
+				console.log(usr);
 				res.send(400, { error: "Username already Taken" });
 			} else {
 				var hasher = require("password-hash");
@@ -29,7 +30,7 @@ var MainController = {
 			}
 		});	
 	},
-	login:function(req,res){
+	login: function(req,res){
 		var username = req.param("username");
 		var password = req.param("password");
 
@@ -52,7 +53,7 @@ var MainController = {
 			}
 		});	
 	},
-	chat:function(req,res){
+	chat: function(req,res){
 		if(req.session.user){
 			res.view({username:req.session.user.username});
 		} else {

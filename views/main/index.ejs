@@ -46,13 +46,16 @@
 		var confirmPassword = $("#signupConfirmPassword").val();
 		if (username && password){
 			if (password === confirmPassword){
+				console.log(username, password);
 				$.post(
 					'/signup',
-					{username: username, password:password},
+					{username: username, password: password},
 					function(){
+						console.log('attemptedtoredirect');
 						window.location = "/chat";
 					}
 				).fail(function(res){
+					console.log('you failed')
 					alert("Error: " + res.getResponseHeader("error"));
 				});
 			} else {
