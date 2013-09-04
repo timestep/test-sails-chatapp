@@ -6,22 +6,25 @@ var MainController = {
 		var username = req.param("username");
 		var password = req.param("password");
 		//console.log(username,password);	
-		Users.find(username).done(function(err,usr){
+		Users.findOneByUsername(username).done(function(err,usr){
 			if(err){
 				console.log(err);
 				console.log('problem officer');
+				res.set('error','DB error');
 				res.send(500, { error: "DB Error" });
 			} else if (usr) {
 				console.log(usr);
+				res.set('error','Username already Taken');
 				res.send(400, { error: "Username already Taken" });
 			} else {
 				var hasher = require("password-hash");
-				//password = hasher.generate(password);
+				password = hasher.generate(password);
 
 				User.create({username: username, password: password})
 				    .done(function(error,user){
 					    if(error){
-						    res.send(500, {error: "DB Error"});
+						res.set('error','DB Error');
+						res.send(500, {error: "DB Error"});
 					    } else {
 						    req.session.user = user;
 						    req.send(user);
@@ -34,7 +37,7 @@ var MainController = {
 		var username = req.param("username");
 		var password = req.param("password");
 
-		Users.find(username).done(function(err,usr){
+		Users.findOneByUsername(username).done(function(err,usr){
 			if(err){
 				res.send(500, { error: "DB Error" });
 			} else {
