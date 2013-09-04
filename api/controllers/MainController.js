@@ -36,7 +36,7 @@ var MainController = {
 	login: function(req,res){
 		var username = req.param("username");
 		var password = req.param("password");
-
+		console.log('im here');
 		Users.findOneByUsername(username)
 			.done(function(err,usr){
 				if(err){
@@ -45,13 +45,15 @@ var MainController = {
 					if (usr) {
 						var hasher = require("password-hash");
 						if (hasher.verify(password, usr.password)){
-						//if (password === usr.password){
+							console.log('verified');
 							req.session.user = usr;
 							res.send(usr);
+							console.log(req.session.user);
 						} else {
 							res.send(400, { error: "Wrong Password" });
 						}
 					} else {
+						console.log("usernotfound");
 						res.send(404, { error: "User not Found"});
 					}
 				}

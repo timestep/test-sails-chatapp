@@ -27,6 +27,8 @@
 		var username = $("#loginName").val();
 		var password = $("#loginPassword").val();
 		if (username && password){
+			console.log(username, password);
+				
 			$.post(
 				'/login',
 				{username: username, password:password},
@@ -46,7 +48,6 @@
 		var confirmPassword = $("#signupConfirmPassword").val();
 		if (username && password){
 			if (password === confirmPassword){
-				console.log(username, password);
 				$.post(
 					'/signup',
 					{username: username, password: password},
