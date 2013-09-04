@@ -1,23 +1,11 @@
 module.exports.routes = {
 
-  '/': {
-  	controller: 'main',
-	action: 'index'
-  },
+  '/': 'MainController',
 
-  '/signup': {
-  	controller: 'main',
-	action: 'signup'
-  },
+  '/signup': 'MainController.signup',
 
-  '/login': {
-  	controller:'main',
-	action:'login'
-  },
+  '/login': 'MainController.login',
 
-  '/chat': {
-  	controller: 'main',
-	action: 'chat'
-  }
+  '/chat': 'MainController.chat',
 };
 
