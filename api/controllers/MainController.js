@@ -27,7 +27,7 @@ var MainController = {
 						res.send(500, {error: "DB Error"});
 					    } else {
 						    req.session.user = user;
-						    req.send(user);
+						    res.send(user);
 					    }
 				});
 			}
