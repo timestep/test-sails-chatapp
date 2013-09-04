@@ -20,7 +20,7 @@ var MainController = {
 				var hasher = require("password-hash");
 				password = hasher.generate(password);
 
-				User.create({username: username, password: password})
+				Users.create({username: username, password: password})
 				    .done(function(error,user){
 					    if(error){
 						res.set('error','DB Error');
